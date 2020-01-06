@@ -1,6 +1,6 @@
 # paperspaceBrowserAccess
 
-Start a [Paperspace](http://www.paperspace.com/) cloud computer using a regular web browser by accessing a simple website, without entering your credentials.
+Start, shutdown, or restart a [Paperspace](http://www.paperspace.com/) cloud computer using a regular web browser by accessing a simple website, without entering your credentials.
 
 Anyone who isn't a complete idiot can see your API key and machine hostname if you use this, so I wouldn't recommend using this in its current state.
 
