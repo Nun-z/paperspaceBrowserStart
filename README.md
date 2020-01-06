@@ -1,4 +1,4 @@
-# paperspaceBrowserStart
+# paperspaceBrowserAccess
 
 Start a [Paperspace](http://www.paperspace.com/) cloud computer using a regular web browser by accessing a simple website, without entering your credentials.
 
