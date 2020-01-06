@@ -21,6 +21,7 @@
             <button onclick="sendPaperspace('/start')">Start Machine</button>
             <button onclick="sendPaperspace('/stop')">Shutdown Machine</button>
             <button onclick="sendPaperspace('/restart')">Restart Machine</button>
+            <button onclick="sendPaperspace('/show')">Get Machine Status</button>
         </body>
 
         <script type="text/javascript">
@@ -38,16 +39,6 @@
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", url, true);
                     xhr.setRequestHeader("x-api-key", apiKey);
-                    xhr.onreadystatechange = function() {
-                        if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 204) {
-                            response = '✅ - Machine ' + machineId + ' was successfully started.';
-                        }
-                        else
-                        {
-                            response = '❌ - Machine ' + machineId + ' could not be started.';
-                        }
-                        document.getElementById('main').innerHTML = response;
-                    }
                     xhr.send(); 
                 }
             }   
