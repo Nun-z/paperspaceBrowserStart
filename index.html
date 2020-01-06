@@ -32,15 +32,11 @@
             
             function sendPaperspace(action)
             {   
-                var response = "";
-                if (machineId && apiKey)
-                {
-                    var url = 'https://api.paperspace.io/machines/' + machineId + action;
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", url, true);
-                    xhr.setRequestHeader("x-api-key", apiKey);
-                    xhr.send(); 
-                }
+                var url = 'https://api.paperspace.io/machines/' + machineId + action;
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", url, true);
+                xhr.setRequestHeader("x-api-key", apiKey);
+                xhr.send();
             }   
         </script>
     </head>
