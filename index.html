@@ -21,15 +21,16 @@
             <button onclick="sendPaperspace('/start')">Start Machine</button>
             <button onclick="sendPaperspace('/stop')">Shutdown Machine</button>
             <button onclick="sendPaperspace('/restart')">Restart Machine</button>
-            <button onclick="sendPaperspace('/show')">Get Machine Status</button>
+            <button onclick="getStatusPaperspace()">Get Machine Status</button>
         </body>
 
         <script type="text/javascript">
             "use strict";     
             
-            var machineId = '<insert here>';
-            var apiKey = '<insert here>';
+            var machineId = 'psywowqkl';
+            var apiKey = '33f9d1829f38411320418bccf994bd';
             
+            // Start, restart, or shutdown the machine
             function sendPaperspace(action)
             {   
                 var url = 'https://api.paperspace.io/machines/' + machineId + action;
@@ -37,6 +38,21 @@
                 xhr.open("POST", url, true);
                 xhr.setRequestHeader("x-api-key", apiKey);
                 xhr.send();
+            }  
+            
+            // Get the status of the machine
+            function getStatusPaperspace(action)
+            {   
+                var url = 'https://api.paperspace.io/machines/getMachinePublic?machineId=' + machineId;
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", url, true);
+                xhr.setRequestHeader("x-api-key", apiKey);
+                xhr.send();
+                
+                xhr.onload = function() 
+                {
+                    alert(`Loaded: ${xhr.status} ${xhr.response}`);
+                };
             }   
         </script>
     </head>
