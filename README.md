@@ -5,7 +5,7 @@ Start a [Paperspace](http://www.paperspace.com/) cloud computer using a regular 
 Anyone who isn't a complete idiot can see your API key and machine hostname if you use this, so I wouldn't recommend using this in its current state.
 
 ## Reason
-You can use this to quickly send commands to your Paperspace VM, or you can use give it to a client so that they will be able to access their VM without knowing your credentials.
+You can use this to quickly send commands to your Paperspace VM, or you can give it to a client so that they will be able to access their VM without knowing your credentials.
 
 ## Instructions
 1. Get an API key in the Paperspace console.
