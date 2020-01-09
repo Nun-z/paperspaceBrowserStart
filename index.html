@@ -21,6 +21,9 @@
             <button onclick="sendPaperspace('/start')">Start Machine</button>
             <button onclick="sendPaperspace('/stop')">Shutdown Machine</button>
             <button onclick="sendPaperspace('/restart')">Restart Machine</button>
+            <button onclick="getStatusPaperspace()">Get Machine Status</button>
+            
+            <p id = "statusText"></p>
         </body>
 
         <script type="text/javascript">
@@ -29,27 +32,34 @@
             var machineId = '<insert here>';
             var apiKey = '<insert here>';
             
+            // Display current status when page loads
+            statusText.onload = getStatusPaperspace();
+            
+            // Start, restart, or shutdown the machine
             function sendPaperspace(action)
             {   
-                var response = "";
-                if (machineId && apiKey)
+                var url = 'https://api.paperspace.io/machines/' + machineId + action;
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", url, true);
+                xhr.setRequestHeader("x-api-key", apiKey);
+                xhr.send();
+            }  
+            
+            // Get the status of the machine
+            function getStatusPaperspace()
+            {   
+                var url = 'https://api.paperspace.io/machines/getMachinePublic?machineId=' + machineId;
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", url, true);
+                xhr.setRequestHeader("x-api-key", apiKey);
+                xhr.responseType = 'json';
+                xhr.send();
+                
+                xhr.onload = function() 
                 {
-                    var url = 'https://api.paperspace.io/machines/' + machineId + action;
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", url, true);
-                    xhr.setRequestHeader("x-api-key", apiKey);
-                    xhr.onreadystatechange = function() {
-                        if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 204) {
-                            response = '✅ - Machine ' + machineId + ' was successfully started.';
-                        }
-                        else
-                        {
-                            response = '❌ - Machine ' + machineId + ' could not be started.';
-                        }
-                        document.getElementById('main').innerHTML = response;
-                    }
-                    xhr.send(); 
-                }
+                    var state = xhr.response.state;
+                    document.getElementById("statusText").innerHTML = state;
+                };
             }   
         </script>
     </head>
