@@ -27,8 +27,8 @@
         <script type="text/javascript">
             "use strict";     
             
-            var machineId = 'psywowqkl';
-            var apiKey = '33f9d1829f38411320418bccf994bd';
+            var machineId = '<insert here>';
+            var apiKey = '<insert here>';
             
             // Start, restart, or shutdown the machine
             function sendPaperspace(action)
@@ -41,17 +41,18 @@
             }  
             
             // Get the status of the machine
-            function getStatusPaperspace(action)
+            function getStatusPaperspace()
             {   
                 var url = 'https://api.paperspace.io/machines/getMachinePublic?machineId=' + machineId;
                 var xhr = new XMLHttpRequest();
                 xhr.open("GET", url, true);
                 xhr.setRequestHeader("x-api-key", apiKey);
+                xhr.responseType = 'json';
                 xhr.send();
                 
                 xhr.onload = function() 
                 {
-                    alert(`Loaded: ${xhr.status} ${xhr.response}`);
+                    alert(xhr.response.state);
                 };
             }   
         </script>
