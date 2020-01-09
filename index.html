@@ -22,6 +22,8 @@
             <button onclick="sendPaperspace('/stop')">Shutdown Machine</button>
             <button onclick="sendPaperspace('/restart')">Restart Machine</button>
             <button onclick="getStatusPaperspace()">Get Machine Status</button>
+            
+            <p id = "statusText"></p>
         </body>
 
         <script type="text/javascript">
@@ -29,6 +31,9 @@
             
             var machineId = '<insert here>';
             var apiKey = '<insert here>';
+            
+            // Display current status when page loads
+            statusText.onload = getStatusPaperspace();
             
             // Start, restart, or shutdown the machine
             function sendPaperspace(action)
@@ -52,7 +57,8 @@
                 
                 xhr.onload = function() 
                 {
-                    alert(xhr.response.state);
+                    var state = xhr.response.state;
+                    document.getElementById("statusText").innerHTML = state;
                 };
             }   
         </script>
