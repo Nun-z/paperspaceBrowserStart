@@ -20,7 +20,6 @@
             <button onclick="sendPaperspace('/start')">Start Machine</button>
             <button onclick="sendPaperspace('/stop')">Shutdown Machine</button>
             <button onclick="sendPaperspace('/restart')">Restart Machine</button>
-            <button onclick="getStatusPaperspace()">Get Machine Status</button>
             
             <p>Machine status: <span id = "statusText">getting status...</span></p>
         </body>
@@ -30,14 +29,14 @@
             
             const sleep = (milliseconds) => { return new Promise(resolve => setTimeout(resolve, milliseconds)) }
             
-            var machineId = 'psywowqkl';
-            var apiKey = '33f9d1829f38411320418bccf994bd';
+            var machineId = '<insert here>';
+            var apiKey = '<insert here>';
             
             // Display current status when page loads
             statusText.onload = getStatusPaperspace();
             
             // Get the status every few seconds, continuously
-            setInterval(getStatusPaperspace, 1000);
+            setInterval(getStatusPaperspace, 500);    
             
             // Start, restart, or shutdown the machine
             function sendPaperspace(action)
