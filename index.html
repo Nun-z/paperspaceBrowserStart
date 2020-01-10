@@ -4,7 +4,7 @@
         <title>Access Paperspace machine</title>
         <meta charset="UTF-8">
         <style>
-            body {
+            body {>
                 background-color: white;
             }
             #main {
@@ -23,17 +23,22 @@
             <button onclick="sendPaperspace('/restart')">Restart Machine</button>
             <button onclick="getStatusPaperspace()">Get Machine Status</button>
             
-            <p id = "statusText"></p>
+            <p>Machine status: <span id = "statusText">getting status...</span></p>
         </body>
 
         <script type="text/javascript">
             "use strict";     
+            
+            const sleep = (milliseconds) => { return new Promise(resolve => setTimeout(resolve, milliseconds)) }
             
             var machineId = '<insert here>';
             var apiKey = '<insert here>';
             
             // Display current status when page loads
             statusText.onload = getStatusPaperspace();
+            
+            // Get the status every few seconds, continuously
+            setInterval(getStatusPaperspace, 1000);
             
             // Start, restart, or shutdown the machine
             function sendPaperspace(action)
