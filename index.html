@@ -37,7 +37,7 @@
             statusText.onload = getStatusPaperspace();
             
             // Get the status every few seconds, continuously
-            setInterval(getStatusPaperspace, 1000);
+            setInterval(getStatusPaperspace, 500);
             
             // Start, restart, or shutdown the machine
             function sendPaperspace(action)
