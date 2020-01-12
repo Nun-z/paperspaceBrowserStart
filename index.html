@@ -22,12 +22,14 @@
             <button onclick="sendPaperspace('/restart')">Restart Machine</button>
             
             <p>Machine status: <span id = "statusText">getting status...</span></p>
+            <p>Monthly storage cost: <span id = "storageCost">getting info...</span></p>
+            <p>Monthly utilization (hours): <span id = "hoursUsed">getting info...</span></p>
+            <p>Hourly cost: <span id = "hourlyCost">getting info...</span></p>
+            <p>Total cost for this month: <span id = "totalCost">getting info...</span></p>
         </body>
 
         <script type="text/javascript">
             "use strict";     
-            
-            const sleep = (milliseconds) => { return new Promise(resolve => setTimeout(resolve, milliseconds)) }
             
             var machineId = '<insert here>';
             var apiKey = '<insert here>';
@@ -36,7 +38,9 @@
             statusText.onload = getStatusPaperspace();
             
             // Get the status every few seconds, continuously
-            setInterval(getStatusPaperspace, 500);    
+            setInterval(getStatusPaperspace, 500); 
+            
+            getUtilization();
             
             // Start, restart, or shutdown the machine
             function sendPaperspace(action)
@@ -63,7 +67,44 @@
                     var state = xhr.response.state;
                     document.getElementById("statusText").innerHTML = state;
                 };
-            }   
+            }  
+            
+            // Get utilization information
+            function getUtilization()
+            {
+                var currentDate = new Date();
+                var year = currentDate.getFullYear();
+                var month = currentDate.getMonth();
+                
+                month++;
+                
+                if (month < 10)
+                {
+                    month = '0'+month;
+                }
+                
+                var url = 'https://api.paperspace.io/machines/getUtilization?machineId=' + machineId + '&billingMonth=' + year + '-' + month;
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", url, true);
+                xhr.setRequestHeader("x-api-key", apiKey);
+                xhr.responseType = 'json';
+                xhr.send();
+                
+                xhr.onload = function() 
+                {
+                    var storageCost = xhr.response.storageUtilization.monthlyRate;
+                    document.getElementById("storageCost").innerHTML = '$' + storageCost;
+                    
+                    var hoursUsed = xhr.response.utilization.secondsUsed;
+                    document.getElementById("hoursUsed").innerHTML = Math.round(hoursUsed * 1/60 * 1/60);
+                    
+                    var hourRate = xhr.response.utilization.hourlyRate;
+                    document.getElementById("hourlyCost").innerHTML = '$' + hourRate;
+                    
+                    var totalCost = Math.round(parseFloat(hourRate) * parseFloat(hoursUsed) * 1/60 * 1/60 + parseFloat(storageCost));
+                    document.getElementById("totalCost").innerHTML = '$' + totalCost;
+                };
+            }
         </script>
     </head>
 </html>
