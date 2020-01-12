@@ -34,9 +34,6 @@
             var machineId = '<insert here>';
             var apiKey = '<insert here>';
             
-            // Display current status when page loads
-            statusText.onload = getStatusPaperspace();
-            
             // Get the status every few seconds, continuously
             setInterval(getStatusPaperspace, 500); 
             
