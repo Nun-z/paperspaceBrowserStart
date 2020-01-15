@@ -22,6 +22,7 @@
             <button onclick="sendPaperspace('/restart')">Restart Machine</button>
             
             <p>Machine status: <span id = "statusText">getting status...</span></p>
+
             <p>Monthly storage cost: <span id = "storageCost">getting info...</span></p>
             <p>Monthly utilization (hours): <span id = "hoursUsed">getting info...</span></p>
             <p>Hourly cost: <span id = "hourlyCost">getting info...</span></p>
@@ -36,8 +37,8 @@
             
             // Get the status every few seconds, continuously
             setInterval(getStatusPaperspace, 500); 
-            
-            getUtilization();
+            // Get utilization info every hour
+            setInterval(getUtilization, 3600000);
             
             // Start, restart, or shutdown the machine
             function sendPaperspace(action)
