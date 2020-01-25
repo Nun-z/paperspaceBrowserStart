@@ -35,6 +35,9 @@
             var machineId = '<insert here>';
             var apiKey = '<insert here>';
             
+            // Get initial utilization
+            getUtilization();
+            
             // Get the status every few seconds, continuously
             setInterval(getStatusPaperspace, 500); 
             // Get utilization info every hour
